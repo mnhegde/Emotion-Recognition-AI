@@ -20,6 +20,16 @@
   :root{
     --plyr-color-main: #007BFF;
   }
+  span {
+  border-right: .05em solid;
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+  50% {
+    border-color: transparent;
+  }
+}
   </style>
   </head>
   <body>
@@ -55,10 +65,6 @@
           Stop
         </button>
       </div>
-      <div id="formats">Format: start recording to see sample rate</div>
-      <br />
-      <p><strong>Recordings:</strong></p>
-      <ol id="recordingsList" ></ol>
     </div>
     <div id="formats" style='color: white'>Format: start recording to see sample rate</div>
     <div id='error' style='color: red'></div>
@@ -66,9 +72,11 @@
     <ol id="recordingsList"></ol>
 
     <center>
-      <img src="C:\Users\manuh\Emotion-Recognition-AI\robot.png"></img>
-      </center>
-      <div id='chat'></div>
+      <!--<img src='https://i.imgur.com/D7Sa4C0.png' alt='Robot'>-->
+    </center>
+    
+    <br><br>
+    <center><div id='chat'><h3 style='color: #269ef5'></h3></div></center>
     
     <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 

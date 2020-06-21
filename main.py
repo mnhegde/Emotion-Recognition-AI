@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request
 import json, wave, base64
 from cloud import sendData, retrieveData
-from model import model, extract_feature
+#from model import model, extract_feature
 
 app = Flask(__name__)
 
@@ -15,10 +15,11 @@ def index():
         #if yes, then store input on google cloud and train model with. Else, just run through modela nd return result
         audio = request.files['audio_data']
         audio.save('audio.wav')
+        return 'emotion'
         #sendData('audio.wav')
-        data = [extract_feature('audio.wav')]
-        pred = model.predict(data)
-        print(pred)
+        #data = [extract_feature('audio.wav')]
+        #pred = model.predict(data)
+        #print(pred)
         
     else:
         return render_template('sound.html')
