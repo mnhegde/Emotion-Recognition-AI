@@ -1,22 +1,18 @@
 
 from flask import Flask, render_template, request
-import json
-import base64
+import json, wave, base64
+from cloud import sendData, retrieveData
 
 app = Flask(__name__)
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        # Open file and write binary (blob) data
-        f = open('./file.wav', 'wb')
-        encode_string=base64.b64encode(request.json)
-        decode_string = base64.b64decode(encode_string)
-        f.write(decode_string)
-        
-     
+        audio = request.files['audio_data']
+        audio.save('audio.wav')
+        sendData('audio.wav')
     else:
-        return render_template('index.html')
+        return render_template('sound.html')
 
 
 if __name__ == '__main__':
