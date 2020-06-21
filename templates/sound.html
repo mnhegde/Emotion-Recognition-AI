@@ -9,32 +9,87 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>li.nostyle {
-      list-style-type: none;
-  }
-  a.dark{
-  color:#007BFF;}
-  :root{
-    --plyr-color-main: #007BFF;
-  }
-  span {
-  border-right: .05em solid;
-  animation: caret 1s steps(1) infinite;
-}
+    <style>
+          li.nostyle {
+            list-style-type: none;
+        }
+        a.dark{
+        color:#007BFF;}
+        :root{
+          --plyr-color-main: #007BFF;
+        }
+        span {
+        border-right: .05em solid;
+        animation: caret 1s steps(1) infinite;
+      }
 
-@keyframes caret {
-  50% {
-    border-color: transparent;
-  }
-}
-  </style>
+      @keyframes caret {
+        50% {
+          border-color: transparent;
+        }
+      }
+      .popupb
+      {
+        width: 100vw;
+        height: 100vw;
+        background-color: transparent;
+        position: absolute;
+        z-index: 400;
+      }
+      .popubf
+      {
+        top:10%;
+        position: absolute; 
+        border: 2px solid rgb(38,158,245);
+         border-radius: 7px; 
+         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+         height: fit-content;
+         width: 40%;
+         
+          text-align: center;
+          font-size: 20px;
+            align-items: center;
+            background-color: white;
+            z-index: 440;
+            margin-right: 30%;
+            margin-left: 30%;
+            color: #269ef5;
+      }
+    </style>
   </head>
   <body>
+    <div class="popupb" >
+      <div class='popubf'>
+        <h1>Welcome!</h1>
+        <h5 style="word-wrap: break-word;">To record your voice just click the record button and start speaking. After you stop recording you will be able to listen to your recording and upload it to the AI and see the predicted emotion. If the predicted emotion is correct wer would like to train our AI with your voice to imporve its accuracy. <br/><b>Do you consent to your voice being stored and trained by the AI? </b></h5>
+        <form>
+          <div class="form-check" >
+            <input type="checkbox" class="form-check-input" id="yes" style="float: left;"onclick='checkbox()'>
+            <label class="form-check-label" for="yes" >Yes I consent</label>
+           
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="no" style="float: right;"onclick='checkbox()'>
+            <label class="form-check-label" for="no" >No I do not consent</label>
+          </div>
+          <br/>
+
+          <button type="submit" class="btn btn-primary" id='popbtn' disabled onclick="removePop()">Submit</button>
+        
+        </form>
+        <br/>
+      </div>
+    </div>
     <div class="container marketing" style="color: #269ef5;">
-      <h1>Emotion AI Recording <img src='https://i.imgur.com/GnSrTyD.png'></h1>
+      <h1>
+        Emotion AI Recording <img src="https://i.imgur.com/GnSrTyD.png" />
+      </h1>
       <br />
 
       <div id="controls">
@@ -65,19 +120,23 @@
           Stop
         </button>
       </div>
-    </div>
-    <div id="formats" style='color: white'>Format: start recording to see sample rate</div>
-    <div id='error' style='color: red'></div>
-    <p style='color: white'><strong>Recordings:</strong></p>
-    <ol id="recordingsList"></ol>
 
+      <div id="formats" style="color: white;">
+        Format: start recording to see sample rate
+      </div>
+      <div id="error" style="color: red;"></div>
+      <p style="color: white;"><strong>Recordings:</strong></p>
+      <ol id="recordingsList"></ol>
+    </div>
     <center>
       <!--<img src='https://i.imgur.com/D7Sa4C0.png' alt='Robot'>-->
     </center>
-    
-    <br><br>
-    <center><div id='chat'><h3 style='color: #269ef5'></h3></div></center>
-    
+
+    <br /><br />
+    <center>
+      <div id="chat"><h3 style="color: #269ef5;"></h3></div>
+    </center>
+
     <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 
     <script
@@ -90,11 +149,11 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
-    <script src="https://kit.fontawesome.com/52bbfb2555.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/52bbfb2555.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script>
-    <script src='static/sound.js'>
-     
-      
-    </script>
+    <script src="static/sound.js"></script>
   </body>
 </html>

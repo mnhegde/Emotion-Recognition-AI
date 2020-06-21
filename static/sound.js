@@ -1,6 +1,34 @@
 URL = window.URL || window.webkitURL;
+var trainVoice;
+function checkbox()
+{
+    if(document.getElementById('yes').checked===true)
+    {
+        document.getElementById('popbtn').disabled=false;
+        trainVoice = true;
+        console.log(trainVoice);
+    }
+    if(document.getElementById('no').checked===true)
+    {
+        document.getElementById('popbtn').disabled=false;
+        trainVoice= false;
+        console.log(trainVoice);
+    }
+    if(document.getElementById('yes').checked===true&&document.getElementById('no').checked===true)
+    {
+        
+        document.getElementById('popbtn').disabled=true;
+    }
+    if(document.getElementById('yes').checked===false&&document.getElementById('no').checked===false){
+    document.getElementById('popbtn').disabled=true;
+   }
+}
+function removePop()
+{
+    $('.popupb').remove();
+}   
 
-      var gumStream;
+var gumStream;
       var rec;
       var input;
 
@@ -143,9 +171,21 @@ URL = window.URL || window.webkitURL;
         remove.innerHTML ='• Delete';
         remove.href='#'
         remove.onclick=function(){ $(li).remove();}
-       
         li.appendChild(remove);
         li.appendChild(emotion)
+        var wrong = document.createElement('a');
+        wrong.innerHTML='•&nbsp; Wrong';
+        wrong.href='#';
+        wrong.onclick=function(){}
+        $(wrong).css('float','right');
+        li.appendChild(wrong)
+       var correct = document.createElement('a');
+       correct.href='#';
+       correct.onclick=function(){}
+       correct.innerHTML='Correct &nbsp';
+       $(correct).css('float','right');
+       li.appendChild(correct);
+        
         recordingsList.appendChild(li);
       }
 
