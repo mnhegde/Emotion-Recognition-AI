@@ -138,21 +138,27 @@ var gumStream;
         li.appendChild(space);
         li.appendChild(link);
         li.appendChild(space);
+
+        audioRecordings = document.getElementsByClassName('emotion');
+        idName = 'Id' + (audioRecordings.length + 1)
         
         var upload = document.createElement("a");
         upload.href = "#";
+        upload.setAttribute('class', idName)
         upload.innerHTML = '• Send to AI';
         upload.addEventListener("click", function (event) {
           var xhr = new XMLHttpRequest();
           xhr.onload = function (e) {
             if (this.readyState === 4) {
                 console.log("Server returned: ", e.target.responseText);
-                document.getElementById('emotionReturned').innerHTML += '<b>' + toTitleCase(e.target.responseText) + '</b>';
+                words = e.target.responseText.split(' ')
+                document.getElementById(words[1]).innerHTML = '&nbsp;&nbsp;• Emotion: <b>' + toTitleCase(words[0]) + '</b>';
             }
           };
-          console.log(blob);
+          
           var fd = new FormData();
           fd.append("audio_data", blob, filename);
+          fd.append('Id', upload.getAttribute('class'));
           xhr.open("POST", "/", true);
           xhr.send(fd);
         });
@@ -161,7 +167,10 @@ var gumStream;
         var emotion = document.createElement('a');
         
         emotion.innerHTML+='&nbsp;&nbsp;• Emotion: '
-        emotion.setAttribute('id', 'emotionReturned')
+        emotion.setAttribute('class', 'emotion');
+        
+        
+        emotion.setAttribute('id', idName);
         emotion.classList.add('dark');
         
         emotion.addEventListener('click',function(){console.log('emotion')})
@@ -220,10 +229,10 @@ document.addEventListener('DOMContentLoaded',function(event){
     // start a typewriter animation for a text in the dataText array
      function StartTextAnimation(i) {
        if (typeof dataText[i] == 'undefined'){
-           /*comment out if you don't want text to start over
+           //comment out if you don't want text to start over
             setTimeout(function() {
             StartTextAnimation(0);
-          }, 20000); */
+          }, 20000); 
        }
       if (i < dataText[i].length) {
        typeWriter(dataText[i], 0, function(){

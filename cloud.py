@@ -5,12 +5,10 @@ storage_client = storage.Client.from_service_account_json("GoogleCloudKey.json")
 bucket = storage_client.get_bucket("emotion-recognition-data-storage")
 
 def sendData(filename):
-    
     blob = bucket.blob(filename)
     blob.upload_from_filename(filename)
 
 def retrieveData(filename):
-    #fix this. Will only be used when needing to store and get model
     blob = bucket.get_blob(filename)
     blob.download_to_filename(filename)
 
