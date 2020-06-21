@@ -56,4 +56,4 @@ def model_train(file_name, emotion):
 
     overwrite_model_file(model)
 
-print(model_predict('')[0])
+print(model_predict('sample_tests/')[0])
