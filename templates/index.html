@@ -32,22 +32,16 @@
   };
 
   var mediaRecorder;
-
+  const chunks = [];
+  blob = new Blob(chunks, {'type': 'audio/wav;'});
   function onMediaSuccess(stream) {
     mediaRecorder = new MediaStreamRecorder(stream);
     mediaRecorder.stream = stream;
-    mediaRecorder.mimeType = 'audio/wav';  
-    //mediaRecorder.mimeType = 'audio/webm';  
+    mediaRecorder.mimeType = 'audio/wav';    
     mediaRecorder.audioChannels = 1;
-   // mediaRecorder.ondataavailable = function(blob) {
-    //  $('#record-audio').html("<audio controls=''><source src=" + URL.createObjectURL(blob) + "></source></audio>");
-  //  };
-
-    var timeInterval = 360 * 1000;
-
-    mediaRecorder.start(timeInterval);
-
-  //  $('#stop-recording').disabled = false;
+    mediaRecorder.ondataavailable = e => {
+    chunks.push(e.data);
+}
   }
   function onMediaError(e) {
     console.error('media error', e);
@@ -57,11 +51,10 @@
     mediaRecorder.stop();
     mediaRecorder.stream.stop();
     mediaRecorder.save();
-    fetch ('/',{
-        method:'POST',
-        'Content-Type':'audio/wav',
-        body:mediaRecorder.save(),
-    })
+    fetch('/', {
+  method: "post",
+  body: blob
+});
   };
 
   </script>

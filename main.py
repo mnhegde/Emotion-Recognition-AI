@@ -1,23 +1,19 @@
-from scipy.io.wavfile import write, read
-from flask import Flask, render_template, request
-import simpleaudio as sa
-import json
-import io
-app = Flask(__name__)
 
-def convertAudio(data):
-    print(data)
-    rate, data = read(io.BytesIO(data))
-    reversed_data = data[::-1]
-    bytes_wav = bytes()
-    byte_io = io.BytesIO(bytes_wav)
-    write(byte_io,rate,reversed)
-    output_wav = byte_io.read()
+from flask import Flask, render_template, request
+import json
+import base64
+
+app = Flask(__name__)
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        convertAudio(request.json)
+        # Open file and write binary (blob) data
+        f = open('./file.wav', 'wb')
+        encode_string=base64.b64encode(request.json)
+        decode_string = base64.b64decode(encode_string)
+        f.write(decode_string)
+        
      
     else:
         return render_template('index.html')
