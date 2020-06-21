@@ -1,4 +1,5 @@
 import librosa
+from librosa.core import istft
 import soundfile
 import os, glob, pickle
 import numpy as np
@@ -7,9 +8,10 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 import pickle
 
-def extract_feature(file_name, mfcc=True, chroma=True, mel=True):
+def extract_feature(file_name, mfcc, chroma, mel):
     with soundfile.SoundFile(file_name) as sound_file:
         X = sound_file.read(dtype="float32")
+        X = librosa.to_mono(X)
         sample_rate=sound_file.samplerate
         if chroma:
             stft=np.abs(librosa.stft(X))
@@ -36,7 +38,7 @@ def overwrite_model_file(model):
         print('succesfully trained')
 
 def model_predict(file_name):
-    extracted_features = [extract_feature(file_name)]
+    extracted_features = [extract_feature(file_name, mfcc=True, chroma=True, mel=True)]
 
     model = open_model()
     
@@ -46,7 +48,7 @@ def model_predict(file_name):
 
 
 def model_train(file_name, emotion):
-    extracted_features = [extract_feature(file_name)]
+    extracted_features = [extract_feature(file_name, mfcc=True, chroma=True, mel=True)]
 
     correct_emotion = [emotion]
 
@@ -56,4 +58,4 @@ def model_train(file_name, emotion):
 
     overwrite_model_file(model)
 
-print(model_predict('sample_tests/')[0])
+print(model_predict('sample_tests/pierre_confused.wav')[0])
