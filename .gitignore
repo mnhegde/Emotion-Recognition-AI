@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 
 #Files
-CloudKey.json
-model.pkl
+GoogleCloudKey.json

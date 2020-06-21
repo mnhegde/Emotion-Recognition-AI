@@ -60,7 +60,9 @@ function startRecording() {
         
         recordButton.disabled = false;
         stopButton.disabled = true;
-        pauseButton.disabled = true
+        pauseButton.disabled = true;
+
+        document.getElementById('error').innerHTML = '<b>There was an error when trying to capture your audio! Please check your input and try again.</b>';
     });
 }
 
@@ -130,7 +132,7 @@ function createDownloadLink(blob) {
     
     var upload = document.createElement('a');
     upload.href="#";
-    upload.innerHTML = "Upload";
+    upload.innerHTML = "Send to AI";
     upload.addEventListener("click", function(event){
           var xhr=new XMLHttpRequest();
           xhr.onload=function(e) {
@@ -148,4 +150,16 @@ function createDownloadLink(blob) {
     li.appendChild(upload)
 
     recordingsList.appendChild(li);
+}
+
+function createText(msg) {
+    text = document.createElement('h3');
+    text.style.color = 'white'
+    text.innerHTML = msg + '<span>&nbsp;</span>';
+    document.getElementById('chat').appendChild(text);
+}
+
+window.onload = function() {
+    createText('hello')
+
 }
