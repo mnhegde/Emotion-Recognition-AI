@@ -39,9 +39,10 @@ def overwrite_model_file(model):
 
 def model_predict(file_name):
     extracted_features = [extract_feature(file_name, mfcc=True, chroma=True, mel=True)]
-
+    print(extracted_features)
     model = open_model()
     
+    model.batch_size = 256
     pred = model.predict(extracted_features)
     
     return(pred)
@@ -49,7 +50,7 @@ def model_predict(file_name):
 
 def model_train(file_name, emotion):
     extracted_features = [extract_feature(file_name, mfcc=True, chroma=True, mel=True)]
-
+    
     correct_emotion = [emotion]
 
     model = open_model()
@@ -58,4 +59,7 @@ def model_train(file_name, emotion):
 
     overwrite_model_file(model)
 
-print(model_predict('sample_tests/pierre_confused.wav')[0])
+chosen_file = "sample_tests/pierre_confused.wav"
+emotion = 'angry'
+print(model_predict(chosen_file)[0])
+#model_train(chosen_file, emotion)
