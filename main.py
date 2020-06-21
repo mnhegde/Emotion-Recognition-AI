@@ -1,6 +1,6 @@
 
 from flask import Flask, render_template, request
-import json, wave, base64
+import json, wave, base64, glob
 from cloud import sendData, retrieveData
 #from model import model, extract_feature
 
@@ -13,10 +13,16 @@ def index():
         #return result of model
         #potentially ask user whether they are comfortable with storing input/using it to train model
         #if yes, then store input on google cloud and train model with. Else, just run through modela nd return result
+        #count existing list of files to get unique name
         audio = request.files['audio_data']
-        audio.save('audio.wav')
-        return 'emotion'
-        #sendData('audio.wav')
+        data = request.form
+        existingFiles = len(glob.glob('userInput/*'))
+        filename = 'userInput/audio%s.wav' %(existingFiles + 1)
+        print(filename)
+        audio.save(filename)
+        #sendData(filename)
+        return 'emotion ' + data['Id']
+        
         #data = [extract_feature('audio.wav')]
         #pred = model.predict(data)
         #print(pred)
