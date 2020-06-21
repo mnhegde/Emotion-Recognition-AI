@@ -26,7 +26,48 @@ function checkbox()
 function removePop()
 {
     $('.popupb').remove();
-}   
+    var dataText = [ 
+        "Hello, and welcome to the Speech Emotion Recognition Software", 
+        "Our goal was to be able to determine the motion exhibited by someone just through their voice, which can be used in chatbots and virtual assistants worldwide", 
+        "To testing the AI, simply hit the record button, and record yourself talking about anything you wish. Once you stop the recording, the file will be generated, and can then be sent to the AI", 
+        "The AI will return the emotion it finds in the recording, and you can then let us know whether it was correct. We appreciate your inputs, as it helps our AI get better over time."];
+    
+    // type one text in the typwriter
+    // keeps calling itself until the text is finished
+    function typeWriter(text, i, fnCallback) {
+      // chekc if text isn't finished yet
+      if (i < (text.length)) {
+        // add next character to h1
+       document.querySelector("h3").innerHTML = text.substring(0, i+1) +'<span aria-hidden="true"></span>';
+  
+        // wait for a while and call this function again for next character
+        setTimeout(function() {
+          typeWriter(text, i + 1, fnCallback)
+        }, 100);
+      }
+      // text finished, call callback if there is a callback function
+      else if (typeof fnCallback == 'function') {
+        // call callback after timeout
+        setTimeout(fnCallback, 700);
+      }
+    }
+    // start a typewriter animation for a text in the dataText array
+     function StartTextAnimation(i) {
+       if (typeof dataText[i] == 'undefined'){
+           //comment out if you don't want text to start over
+            setTimeout(function() {
+            StartTextAnimation(0);
+          }, 20000); 
+       }
+      if (i < dataText[i].length) {
+       typeWriter(dataText[i], 0, function(){
+         StartTextAnimation(i + 1);
+       });
+      }
+    }
+    StartTextAnimation(0);
+  
+};   
 
 var gumStream;
       var rec;
@@ -159,6 +200,7 @@ var gumStream;
           var fd = new FormData();
           fd.append("audio_data", blob, filename);
           fd.append('Id', upload.getAttribute('class'));
+          fd.append('Consent', trainVoice);
           xhr.open("POST", "/", true);
           xhr.send(fd);
         });
@@ -185,13 +227,28 @@ var gumStream;
         var wrong = document.createElement('a');
         wrong.innerHTML='•&nbsp; Wrong';
         wrong.href='#';
-        wrong.onclick=function(){}
+        wrong.onclick=function(){
+          if (trainVoice == true) {
+            fetch('/trainModel', {
+              method: 'POST',
+              body: JSON.stringify({'Prediction': 'Wrong'})
+            })
+          }
+          }
         $(wrong).css('float','right');
         li.appendChild(wrong)
        var correct = document.createElement('a');
        correct.href='#';
-       correct.onclick=function(){}
-       correct.innerHTML='Correct &nbsp';
+       correct.onclick=function(){
+         if (trainVoice == true) {
+          fetch('/trainModel', {
+            method: 'POST',
+            body: JSON.stringify({'Prediction': 'Correct'})
+          })
+        }
+         }
+         
+       correct.innerHTML='• Correct &nbsp';
        $(correct).css('float','right');
        li.appendChild(correct);
         
@@ -199,49 +256,8 @@ var gumStream;
       }
 
 
-document.addEventListener('DOMContentLoaded',function(event){
-    // array with texts to type in typewriter
-    var dataText = [ 
-        "Hello, and welcome to the Speech Emotion Recognition Software", 
-        "Our goal was to be able to determine the motion exhibited by someone just through their voice, which can be used in chatbots and virtual assistants worldwide", 
-        "To testing the AI, simply hit the record button, and record yourself talking about anything you wish. Once you stop the recording, the file will be generated, and can then be sent to the AI", 
-        "The AI will return the emotion it finds in the recording, and you can then let us know whether it was correct. We appreciate your inputs, as it helps our AI get better over time."];
-    
-    // type one text in the typwriter
-    // keeps calling itself until the text is finished
-    function typeWriter(text, i, fnCallback) {
-      // chekc if text isn't finished yet
-      if (i < (text.length)) {
-        // add next character to h1
-       document.querySelector("h3").innerHTML = text.substring(0, i+1) +'<span aria-hidden="true"></span>';
-  
-        // wait for a while and call this function again for next character
-        setTimeout(function() {
-          typeWriter(text, i + 1, fnCallback)
-        }, 100);
-      }
-      // text finished, call callback if there is a callback function
-      else if (typeof fnCallback == 'function') {
-        // call callback after timeout
-        setTimeout(fnCallback, 700);
-      }
-    }
-    // start a typewriter animation for a text in the dataText array
-     function StartTextAnimation(i) {
-       if (typeof dataText[i] == 'undefined'){
-           //comment out if you don't want text to start over
-            setTimeout(function() {
-            StartTextAnimation(0);
-          }, 20000); 
-       }
-      if (i < dataText[i].length) {
-       typeWriter(dataText[i], 0, function(){
-         StartTextAnimation(i + 1);
-       });
-      }
-    }
-    StartTextAnimation(0);
-  });
+
+   
 
 
   function toTitleCase(str) {
