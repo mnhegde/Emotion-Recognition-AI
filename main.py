@@ -1,7 +1,7 @@
 
 from flask import Flask, render_template, request
 import json, wave, base64, glob, model_functions, os
-from cloud import sendData, retrieveData
+#from cloud import sendData, retrieveData
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def index():
         audio.save(filename)
         result = model_functions.model_predict(filename)
         if consent == True:
-            sendData(filename)
+            #sendData(filename)
             filesAdded[filename] = result[0]
         elif consent == False:
             os.remove(filename)
