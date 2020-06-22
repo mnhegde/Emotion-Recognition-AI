@@ -6,6 +6,7 @@ import json, wave, base64, glob, model_functions, os
 app = Flask(__name__)
 
 filesAdded = {}
+keys = []
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
@@ -17,10 +18,15 @@ def index():
         filename = 'userInput/audio%s.wav' %(existingFiles + 1)
         audio.save(filename)
         result = model_functions.model_predict(filename)
+<<<<<<< HEAD
         if consent == True:
             #sendData(filename)
+=======
+        if consent == 'true':
+            sendData(filename)
+>>>>>>> e2f6f0fe67924f3bfc2b0c2095100326801a3b70
             filesAdded[filename] = result[0]
-        elif consent == False:
+        elif consent == 'false':
             os.remove(filename)
         return result[0] + ' ' + data['Id']
     else:
@@ -30,7 +36,9 @@ def index():
 def trainModel():
     if request.method == 'POST':
         data = request.json
-        prediction = next(iter(filesAdded.items() ))
+        for key in filesAdded.keys():
+            keys.append(key)
+        prediction = keys[0]
         if data['Prediction'] == 'Correct':
             model_functions.model_train(prediction[0], prediction[1])
         if data['Prediction'] == 'Wrong':
