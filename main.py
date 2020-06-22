@@ -18,13 +18,8 @@ def index():
         filename = 'userInput/audio%s.wav' %(existingFiles + 1)
         audio.save(filename)
         result = model_functions.model_predict(filename)
-<<<<<<< HEAD
-        if consent == True:
-            #sendData(filename)
-=======
         if consent == 'true':
-            sendData(filename)
->>>>>>> e2f6f0fe67924f3bfc2b0c2095100326801a3b70
+            #sendData(filename)
             filesAdded[filename] = result[0]
         elif consent == 'false':
             os.remove(filename)
