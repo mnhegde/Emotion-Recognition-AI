@@ -2,7 +2,6 @@
 from flask import Flask, render_template, request
 import json, wave, base64, glob, model_functions, os
 from cloud import sendData, retrieveData
-#from model import model, extract_feature
 
 app = Flask(__name__)
 
