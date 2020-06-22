@@ -27,9 +27,9 @@ function removePop()
 {
     $('#ss').remove();
     var dataText = [ 
-        "Hello, and welcome to the Speech Emotion Recognition Software", 
-        "Our goal was to be able to determine the motion exhibited by someone just through their voice, which can be used in chatbots and virtual assistants worldwide", 
-        "To testing the AI, simply hit the record button, and record yourself talking about anything you wish. Once you stop the recording, the file will be generated, and can then be sent to the AI", 
+        "Hello, and welcome to Emotify, our Speech Emotion Recognition Software", 
+        "Our goal was to be able to determine the emotion exhibited by someone just through their voice, which can be used in chatbots and virtual assistants worldwide", 
+        "To test the AI, simply hit the record button, and record yourself talking about anything you wish. Once you stop the recording, the file will be generated, and can then be sent to the AI", 
         "The AI will return the emotion it finds in the recording, and you can then let us know whether it was correct. We appreciate your inputs, as it helps our AI get better over time."];
     
     // type one text in the typwriter
