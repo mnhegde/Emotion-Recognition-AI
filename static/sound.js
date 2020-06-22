@@ -258,7 +258,7 @@ var gumStream;
       var emotion;
 $(".dropdown-menu li a").click( function() {
         emotion = $(this).text();
-        
+        $('#btnText').html(emotion+'&nbsp;<i class="fas fa-caret-down"></i>');
         
     });
 function wEmo()
@@ -278,6 +278,7 @@ function wEmo()
 }
 
    
+
 
 
   function toTitleCase(str) {

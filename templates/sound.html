@@ -108,7 +108,7 @@
     <div class='popubf'>
       <h1>Thank you for your feedback!</h1>
       <div class="dropdown">
-        <button style="color: #269ef5; background-color: transparent; border: none; " class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><h4>Correct Emotion&nbsp;<i class="fas fa-caret-down"></i></h4></button>
+        <button style="color: #269ef5; background-color: transparent; border: none; " class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><h4 id='btnText'>Correct Emotion&nbsp;<i class="fas fa-caret-down"></i></h4></button>
         <ul class="dropdown-menu" style="color: #269ef5;" >
           <li><a href="#"><h4>Neutral</h4></a></li>
           <li><a href="#"><h4>Calm</h4></a></li>
@@ -121,7 +121,7 @@
         </ul>
       </div>
      <br/>
-      <button type="submit" class="btn btn-primary" id='wbtn' onclick="wEmo()">Close</button>
+      <button type="submit" class="btn btn-primary" id='wbtn' onclick="wEmo()">Submit </button> &nbsp; <button type="submit" class="btn btn-primary" onclick="$('#wrong').addClass('hide');">Close</button>
       <p></p>
     </div>
   </div>
