@@ -25,7 +25,7 @@ function checkbox()
 }
 function removePop()
 {
-    $('.popupb').remove();
+    $('#ss').remove();
     var dataText = [ 
         "Hello, and welcome to the Speech Emotion Recognition Software", 
         "Our goal was to be able to determine the motion exhibited by someone just through their voice, which can be used in chatbots and virtual assistants worldwide", 
@@ -229,10 +229,8 @@ var gumStream;
         wrong.href='#';
         wrong.onclick=function(){
           if (trainVoice == true) {
-            fetch('/trainModel', {
-              method: 'POST',
-              body: JSON.stringify({'Prediction': 'Wrong'})
-            })
+              $('#wrong').removeClass('hide');
+            
           }
           }
         $(wrong).css('float','right');
@@ -240,7 +238,9 @@ var gumStream;
        var correct = document.createElement('a');
        correct.href='#';
        correct.onclick=function(){
+    
          if (trainVoice == true) {
+           $('#correct').removeClass('hide');
           fetch('/trainModel', {
             method: 'POST',
             body: JSON.stringify({'Prediction': 'Correct'})
@@ -255,7 +255,27 @@ var gumStream;
         recordingsList.appendChild(li);
       }
 
-
+      var emotion;
+$(".dropdown-menu li a").click( function() {
+        emotion = $(this).text();
+        
+        
+    });
+function wEmo()
+{
+    if(emotion === undefined)
+    {
+        return
+    }
+    else
+    {
+        $('#wrong').addClass('hide')
+        fetch('/trainModel', {
+            method: 'POST',
+            body: JSON.stringify({'Prediction': 'Wrong','Emotion':emotion})
+          })
+    }
+}
 
    
 
